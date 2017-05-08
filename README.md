@@ -1,8 +1,11 @@
 # TencentMusicApi
-QQ 音乐 API - PHP 版
+QQ 音乐 API - PHP Python版
 
-基于 QQ 音乐 web 端接口改写的 PHP 版本， 建议 PHP 5.6 以上环境
-本 API 为个人学习作品，请支持正版音乐，勿滥用
+Python版本是本人改写自[metowolf/TencentMusicApi](https://github.com/metowolf/TencentMusicApi)
+
+PHP 版本， 建议 PHP 5.6 以上环境
+Python 版本， 建议 Python 3 以上环境
+请支持正版音乐，勿滥用
 
 ### Function
  - [x] 关键字搜索
@@ -16,6 +19,7 @@ QQ 音乐 API - PHP 版
 
 ### Get Started
 
+## php
 ```php
 # just download the TencentMusicAPI.php into directory, require it with the correct path.
 
@@ -38,8 +42,30 @@ var_dump(json_decode($result));
 
 ```
 
+## python
+```python
+# just download the music_api.py into directory, require it with the correct path.
+
+from music_api.py import MusicAPI
+
+# Initialize
+api = MusicAPI()
+
+# Get data
+result = api.search('十年 陈奕迅');
+# result = api.artist('003CoxJh1zFPpx');
+# result = api.detail('001icUif3vTGcO');
+# result = api.album('002rBshp4WPAut');
+# result = api.playlist('801491460');
+# result = api.url('001icUif3vTGcO')
+# result = api.lyric('001icUif3vTGcO')
+
+# return JSON, just use it
+print(json.loads(result))
+```
+
 ### Link
- - [METO Blog](https://i-meto.com/)
+ - [METO Blog (PHP 版本作者博客)](https://i-meto.com/)
 
 
 ### License
