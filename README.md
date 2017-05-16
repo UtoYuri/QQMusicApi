@@ -44,9 +44,9 @@ var_dump(json_decode($result));
 
 ## python
 ```python
-# just download the music_api.py into directory, require it with the correct path.
+# just download the music_api into directory, require it with the correct path.
 
-from music_api.py import MusicAPI
+from music_api import MusicAPI
 
 # Initialize
 api = MusicAPI()
