@@ -6,27 +6,16 @@ import time
 import math
 import json
 
-# QQ音乐API
 class MusicAPI(object):
-    # 单例
-    __instance = None
-
-    # 请求头
     headers = {
         'User-Agent' : r'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.30 Safari/537.36',
-        'Referer' : r'http://y.qq.com/portal/player.html',
+        'Referer' : r'https://y.qq.com/portal/player.html',
         'Cookie' : r'qqmusic_uin=12345678; qqmusic_key=12345678; qqmusic_fromtag=30; ts_last=y.qq.com/portal/player.html;',
     }
 
-    # 参数
     GUID = ''
     KEY = ''
     CDN = ''
-
-    def __new__(cls, *args, **kwargs):
-        if not cls.__instance:
-            cls.__instance = super(MusicAPI, cls).__new__(cls, *args, **kwargs)
-        return cls.__instance
 
     def curl_get(self, url):
         req = request.Request(url, headers = self.headers)
@@ -34,7 +23,7 @@ class MusicAPI(object):
         return response
 
     def search(self, key, limit=10, offset=0):
-        url = 'http://c.y.qq.com/soso/fcgi-bin/search_cp?'
+        url = 'https://c.y.qq.com/soso/fcgi-bin/search_cp?'
         data = {
             'p' : offset + 1, 
             'n' : limit, 
@@ -44,6 +33,17 @@ class MusicAPI(object):
             'cr' : 1, 
         }
         return self.curl_get(url + parse.urlencode(data))[9:-1].decode('utf-8')
+
+    def search_meta(self, key):
+        url = 'https://c.y.qq.com/splcloud/fcgi-bin/smartbox_new.fcg?'
+        data = {
+            'format' : 'json', 
+            'key' : key, 
+            'inCharset' : 'utf8', 
+            'outCharset' : 'utf-8', 
+            'platform' : 'yqq', 
+        }
+        return self.curl_get(url + parse.urlencode(data)).decode('utf-8')
 
     def artist(self, artist_mid, begin=0, limit=10):
         url = 'http://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg?'
@@ -79,10 +79,10 @@ class MusicAPI(object):
         }
         data = self.curl_get(url + parse.urlencode(data)).decode('utf-8')
         json_data = json.loads(data)['data'][0]['file']
-        # print(json_data)
         types = {
             'size_320mp3' : ('M800','mp3'), 
             'size_128mp3' : ('M500','mp3'), 
+            'size_192aac' : ('C600','m4a'), 
             'size_96aac' : ('C400','m4a'), 
             'size_48aac' : ('C200','m4a'), 
             'size_flac' : ('F000','flac'), 
@@ -99,8 +99,7 @@ class MusicAPI(object):
         data = self.curl_get('https://c.y.qq.com/base/fcgi-bin/fcg_musicexpress.fcg?json=3&guid=' + str(self.GUID)).decode('utf-8')
         json_data = json.loads(data[13:-2])
         self.KEY = json_data['key']
-        # self.CDN = json_data['sip'][0]
-        self.CDN = 'http://dl.stream.qqmusic.qq.com/'
+        self.CDN = 'http://streamoc.music.tc.qq.com/'
 
     def microtime(self, get_as_float=False) :
         if get_as_float:
