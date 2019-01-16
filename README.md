@@ -1,5 +1,5 @@
 # QQMusicApi
-QQ音乐API(Python & PHP), 请支持正版音乐，勿滥用
+QQMusicAPI(Python & PHP), do not abuse and support genuine please.
 - Python 3.0+
 - PHP 5.6+
 
