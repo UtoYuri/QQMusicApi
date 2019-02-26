@@ -45,12 +45,12 @@ class MusicAPI(object):
         }
         return self.curl_get(url + parse.urlencode(data)).decode('utf-8')
 
-    def artist(self, artist_mid, begin=0, limit=10):
+    def artist(self, artist_mid, offset=0, limit=10):
         url = 'http://c.y.qq.com/v8/fcg-bin/fcg_v8_singer_track_cp.fcg?'
         data = {
             'singermid' : artist_mid, 
             'order' : 'listen', 
-            'begin' : begin, 
+            'begin' : offset, 
             'num' : limit, 
         }
         return self.curl_get(url + parse.urlencode(data))[0:-1].decode('utf-8')

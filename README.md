@@ -59,5 +59,55 @@ var_dump(json_decode($result));
 
 ```
 
+### TODO
+#### album list
+```
+# headers
+Origin: https://y.qq.com
+Referer: https://y.qq.com/portal/album_lib.html
+
+# api
+https://u.y.qq.com/cgi-bin/musicu.fcg?
+format=json
+data={
+    "albumlib":
+    {
+        "method":"get_album_by_tags",
+        "param":
+        {
+            "area":1,
+            "company":-1,
+            "genre":-1,
+            "type":-1,
+            "year":-1,
+            "sort":2,
+            "get_tags":1,
+            "sin":0,
+            "num":20,
+            "click_albumid":0
+        },
+        "module":"music.web_album_library"
+    },
+    "comm":
+    {
+        "ct":24,
+        "cv":0
+    }
+}
+# album area
+data.albumlib.param.area
+values: 1:内地 0:港台 3:欧美 15:韩国 14:日本 4:其他
+
+# offset
+data.albumlib.param.sin
+
+# limit
+data.albumlib.param.num
+
+# whether reture album tags
+data.albumlib.param.get_tags
+values: 0:disable 1:enable
+```
+
 ### License
 TencentMusicApi is under the MIT license.
